@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="bg-slate-200">
+    <!-- products container -->
+    <div class="container mx-auto gap-3 p-5 bg-inherit grid grid-cols-3 justify-center">
+     
+        <% result.forEach(product => { %>
+
+        <!-- product contain -->
+        <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg">
+            <!-- product image -->
+            <div>
+                <img src="<%= product.image %>" alt="">
+            </div>
+            <!-- product price -->
+            <div class="text-center text-red-500 font-black">
+
+                <% if (product.sale_price) { %>
+
+                <!-- price -->
+                <div class="line-through decoration-2  decoration-red-800">
+                    <%= product.price %><span class="text-black">TMT</span>
+                </div>
+                <!-- sale price -->
+                <div>
+                    <%= product.sale_price %><span class="text-black">TMT</span>
+                </div>
+
+                <% } else { %>
+                <!-- price -->
+                <div class="decoration-2  decoration-red-800">
+                    <%= product.price %><span class="text-black">TMT</span>
+                </div>
+                <% } %>
+                
+            </div>
+            <!-- product name -->
+            <div class="text-center text-sm">
+                <%= product.name %>
+            </div>
+            <!-- product rating -->
+            <div class="relative">
+                <!-- uninspiring raitin box -->
+                <div class="flex justify-center space-x-1">
+                    <!-- svg box -->
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
+                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
+                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
+                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
+                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
+                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                        </svg>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <% }) %>
+
+    </div>
+</body>
+</html>

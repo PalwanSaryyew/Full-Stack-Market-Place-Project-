@@ -12,7 +12,7 @@ export async function getProducts(req,res){
                     message:'Netije tapylmady'
                 });
             }
-            return res.status(200).send({success:true, result})           
+            return res.render('pages/products', {result})          
         } catch (error) {
             return res.status(500).send({
                 success:false,
