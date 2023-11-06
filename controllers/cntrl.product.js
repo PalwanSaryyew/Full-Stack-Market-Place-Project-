@@ -1,6 +1,29 @@
 import * as product from "../models/product.js";
 import { getById as categoryGetById } from "../models/category.js";
 
+
+function isProductInCart(cart, id){
+    for(let i=0; i<cart.length; i++){
+        if(cart[i].id == id){
+            return true;
+        }
+    }
+    return false
+};
+function calculateTotall(cart, req){
+    let total = 0;
+    for(let i=0; i<cart.length; i++){
+        if(cart[i].sale_price){
+            total = total + (cart[i].sale_price * cart[i].quantity)
+        }else{
+            total = total + (cart[i].price*cart[i].quantity)
+        }
+    }
+    req.session.total = total;
+    return total;
+};
+
+
 export async function getProducts(req,res){
     if(req.query.categories){
         try {
@@ -140,3 +163,25 @@ export async function createProduct(req,res){
         return res.status(400).send({success:false, error:error.message});
     }
 };
+export async function addToCart(req,res){
+    const {id, name, price, sale_price, quantity, image} = req.body;
+    const product = {id, name, price, sale_price, quantity, image}
+
+    if(req.session.cart){
+        let cart = req.session.cart
+        if(!isProductInCart(cart, id)){
+            cart.push(product)
+        }else{
+            req.session.cart = [product]
+            cart = req.session.cart
+        }
+        calculateTotall(cart,req)
+        res.redirect('/cart')
+    }
+};
+export function cart(req,res){
+    const cart = req.session.cart;
+    const total = req.session.total;
+
+    res.render('pages/cart', {cart, total})
+}

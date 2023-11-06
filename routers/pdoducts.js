@@ -1,7 +1,10 @@
 import express from "express";
-import { createProduct, deleteProduct, getFeaturedProducts, getProduct, getProducts, productCount, updateProduct, uploadImages } from "../controllers/cntrl.product.js";
+import { createProduct, cart, addToCart, deleteProduct, getFeaturedProducts, getProduct, getProducts, productCount, updateProduct, uploadImages } from "../controllers/cntrl.product.js";
 import { upload } from "../helpers/image.upload.js";
 export const router = express.Router();
+
+router.post('/add_to_cart', addToCart);
+router.get('/cart', cart)
 
 router.post('/', upload.single('image'), createProduct);
 router.put('/:id', upload.single('image'), updateProduct);

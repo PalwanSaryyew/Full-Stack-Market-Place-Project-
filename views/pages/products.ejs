@@ -5,15 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/main.css">
+    <style>
+        #baget{
+            display: none;
+        }
+        #baget.active{
+            display: block;
+        }
+    </style>
 </head>
 <body class="bg-slate-200">
+    <!-- messages container -->
+    <div id="messagesContainer" class="z-20 fixed top-0 w-full grid place-content-center"></div>
+    <!-- baget button -->
+    <button id="bagetButton" class="z-20 fixed top-1 right-1 bg-violet-700 py-1 px-2 rounded-full text-white">Sebet</button>
+    <!-- buget sectiion container -->
+    <div id="baget" class="p-3 space-y-3 w-3/4 z-10 fixed right-0 bottom-0 top-0 bg-slate-300  overflow-y-auto"></div>
+
     <!-- products container -->
     <div class="container mx-auto gap-3 p-5 bg-inherit grid grid-cols-3 justify-center">
      
         <% result.forEach(product => { %>
 
         <!-- product contain -->
-        <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg">
+        <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg grid">
             <!-- product image -->
             <div>
                 <img src="<%= product.image %>" alt="">
@@ -78,9 +93,28 @@
 
 
             </div>
+            <!-- add cart button box -->
+            <div class="self-end justify-self-center">
+                <input type="button" value="Sebede Sal" 
+                       data-id="<%= product.id %>"
+                       data-name="<%= product.name %>"
+                       data-price="<% if (product.sale_price) { %>
+                            <%= product.sale_price %>
+                            <% } else { %>
+                            <%= product.price %>
+                            <% } %>"
+                       data-image="<%= product.image %>"
+                       class="btn-add-to-cart bg-violet-800 text-white p-[0.50rem] rounded-lg">
+            </div>
         </div>
         <% }) %>
 
     </div>
+<script src="/js/baget.js">
+</script>
+<script>
+    
+</script>
+
 </body>
 </html>
