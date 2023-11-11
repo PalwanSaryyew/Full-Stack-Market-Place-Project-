@@ -1,8 +1,8 @@
 import express from "express";
 const app = express();
 
-import session from 'express-session';
-app.use(session({secret: 'secret'}))
+/* import session from 'express-session';
+app.use(session({secret: 'secret'})) */
 
 // Envirement Config
 import dotenv from "dotenv";
@@ -40,8 +40,9 @@ app.use(errorHandler)
 const api = process.env.API_URL
 
 // main routes
-app.get('/', (req,res)=>{
-    res.render('pages/index')
+app.get('/', async (req,res)=>{
+    const result = await getList()
+    res.render('pages/index', {result})
 })
 
 import { router as productsRouter } from "./routers/pdoducts.js";
@@ -54,6 +55,7 @@ import { router as usersRouter } from "./routers/users.js";
 app.use(api+'/users', usersRouter)
 
 import { router as ordersRouter } from "./routers/orders.js";
+import { getList } from "./models/product.js";
 app.use(api+'/orders', ordersRouter)
 
 app.listen(3050,()=>{

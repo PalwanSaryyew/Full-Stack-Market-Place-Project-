@@ -5,22 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/menu.css">
     <style>
-        #baget{
+        #bagetContainer{
             display: none;
         }
-        #baget.active{
+        #bagetContainer.active{
             display: block;
+        }#checkoutWindow.active{
+            display: grid;
         }
     </style>
 </head>
 <body class="bg-slate-200">
+    <!-- menu -->
+    <%- include('./../partials/_menu') %>
     <!-- messages container -->
     <div id="messagesContainer" class="z-20 fixed top-0 w-full grid place-content-center"></div>
     <!-- baget button -->
     <button id="bagetButton" class="z-20 fixed top-1 right-1 bg-violet-700 py-1 px-2 rounded-full text-white">Sebet</button>
     <!-- buget sectiion container -->
-    <div id="baget" class="p-3 space-y-3 w-3/4 z-10 fixed right-0 bottom-0 top-0 bg-slate-300  overflow-y-auto"></div>
+    <div id="bagetContainer" class="z-10 w-3/4 fixed right-0 bottom-0 top-0">
+        <!-- baget -->
+        <div id="baget" class="p-3 space-y-3 w-full h-[90%] bg-slate-300 overflow-y-auto">
+        </div>
+        <div class="w-full h-[10%] bg-green-200">
+            <!-- total price -->
+            <div id="totalPrice" class="bg-violet-500 text-white p-1 inline-block">
+            </div>
+            <!-- checkout button -->
+            <button id="checkoutButton" class="bg-violet-700 text-white p-1 inline-block">
+                Sarga
+            </button>
+        </div>
+    </div>
+    
 
     <!-- products container -->
     <div class="container mx-auto gap-3 p-5 bg-inherit grid grid-cols-3 justify-center">
@@ -28,7 +47,7 @@
         <% result.forEach(product => { %>
 
         <!-- product contain -->
-        <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg grid">
+        <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg grid shadow-2xl">
             <!-- product image -->
             <div>
                 <img src="<%= product.image %>" alt="">
@@ -62,7 +81,7 @@
             <!-- product rating -->
             <div class="relative">
                 <!-- uninspiring raitin box -->
-                <div class="flex justify-center space-x-1">
+                <div class="flex justify-center space-x-1 z-0">
                     <!-- svg box -->
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
@@ -110,11 +129,21 @@
         <% }) %>
 
     </div>
-<script src="/js/baget.js">
-</script>
-<script>
-    
-</script>
+    <!-- checkout window -->
+    <div id="checkoutWindow" class="hidden fixed top-0 left-0 w-screen h-screen place-items-center bg-slate-400/60 backdrop-blur-sm">
+        <form id="checkoutForm" class="h-4/5 w-3/5 z-[15] grid bg-violet-400 p-12 rounded-lg items-start justify-stretch">
+            <input type="text" name="country" placeholder="Ýurt" value="Turkmenistan" class="checkoutInputs">
+            <input type="text" name="shipping_address1" placeholder="Welaýat" class="checkoutInputs">
+            <input type="text" name="shipping_address2" placeholder="Etrap" class="checkoutInputs">
+            <input type="text" name="city" placeholder="Şäher/Oba/Şäherçe" class="checkoutInputs">
+            <input type="text" name="zip" placeholder="Salgyňyzyň ZIP kody" class="checkoutInputs">
+            <input type="tel" name="phone" placeholder="Telefon Belgi" class="checkoutInputs">
+            <input type="hidden" name="user" value="13">
+            <input type="submit" value="Sarga" class="bg-violet-800 text-white rounded-xl p-2">
+        </form>
+    </div>
 
+    <script src="/js/baget.js">
+    </script>
 </body>
 </html>

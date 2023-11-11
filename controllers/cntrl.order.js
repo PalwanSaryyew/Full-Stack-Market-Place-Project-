@@ -7,15 +7,24 @@ export const getOrders = async (req,res)=>{
     if(result.length===0) return res.status(404).send({success: false, message: 'sargyt yok'})
     res.status(200).send({success:true, result})
 };
-export const getOrder = async (req,res)=>{
-    try {      
-        const result = await order.getById(req.params.id);
-        if(!result) res.status(400).send({success:false, message: 'beyle sargyt yok'})
-        res.status(200).send(result)
-    } catch (error) {   
-        return res.status(500).json({success: false, error: error.message})
+export const getOrder = async (req, res) => {
+    try {
+      const result = await order.getById(req.params.id);
+      if (!result) return res.status(400).send({ success: false, message: "beyle sargyt yok" });
+  
+      let row = [];
+      await Promise.all(result.order_items.map(async (element) => {
+        const value = await orderItem.getPrice(element);
+        row.push(value);
+        console.log(value);
+      }));
+  
+      return res.render('pages/order', {result, row})
+      // return res.json({ result, row });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: error.message });
     }
-};
+  };
 export const getTotalSales = async (req,res)=>{
     try {
         const totalSales = await order.getTotalSales();       
@@ -92,9 +101,9 @@ export const createOrder = async (req,res)=>{
             totalPrice,
             req.body.user,
         )
-        return res.status(201).send({success:true, row})
+        return res.status(201).json(row)
     } catch (error) {
-        return res.status(500).send({success: false, error: error.message}) 
+        return res.status(500).json({success: false, error: error.message}) 
     }
 };
 export const updateOrder = async (req,res)=>{

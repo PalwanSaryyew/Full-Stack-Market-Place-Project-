@@ -30,6 +30,7 @@ export async function deleteRow(id){
 export async function getPrice(id){
     const [row] = await pool.query(`
         SELECT
+            products.name,
             products.price,
             quantity
         FROM

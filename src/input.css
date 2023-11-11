@@ -1,5 +1,8 @@
 @tailwind base;
 @layer base{
+    .checkoutInputs{
+        @apply p-2 outline-none focus:ring rounded-md
+    }
 }
 @tailwind components;
 @tailwind utilities;
