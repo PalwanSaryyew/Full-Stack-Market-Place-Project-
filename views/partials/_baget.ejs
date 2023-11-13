@@ -1,0 +1,43 @@
+
+<!-- buget section container -->
+<section id="bagetSection" class="fixed hidden inset-0 bg-black/25 backdrop-blur-sm">
+    <!-- baget Emty Zone -->
+    <div id="bagetSectionEmtyZone" class="fixed left-0 top-0 bottom-0 w-3/5"></div>
+    <!-- baget side box -->
+    <div id="bagetContainer" class="bagetZ w-2/5 fixed right-0 bottom-0 top-0">
+        <!-- baget -->
+        <div id="baget" class="p-3 space-y-3 w-full h-[92%] bg-slate-300 overflow-y-auto">
+        </div>
+        <!-- bottom box -->
+        <div class="w-full h-[8%] bg-green-200 grid grid-cols-2 ">
+            <!-- total price -->
+            <div id="totalPrice" class="bg-violet-500 text-white p-1 grid place-items-center">
+            </div>
+            <!-- checkout button -->
+            <button id="checkoutButton" class="bg-violet-700 text-white p-1 inline-block">
+                Sarga
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- buget section container -->
+<section id="checkoutWindow" class="checkoutZ hidden fixed top-0 left-0 w-screen h-screen place-items-center bg-black/25 backdrop-blur-sm">
+    <!-- checkout window -->
+    <form id="checkoutForm" class="z-[22] relative h-4/5 w-2/5 grid bg-violet-400 p-12 rounded-lg items-start justify-stretch">
+        <!-- checkout Emty Zone -->
+    	<div id="checkoutWindowEmtyZone" class="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 w-10 h-10">
+            <img src="/close.svg" alt="" class="rounded-full bg-violet-500 w-full h-full shadow-md">
+        </div>
+
+        <input type="text" name="country" placeholder="Ýurt" value="Turkmenistan" class="checkoutInputs">
+        <input type="text" name="shipping_address1" placeholder="Welaýat" class="checkoutInputs">
+        <input type="text" name="shipping_address2" placeholder="Etrap" class="checkoutInputs">
+        <input type="text" name="city" placeholder="Şäher/Oba/Şäherçe" class="checkoutInputs">
+        <input type="text" name="zip" placeholder="Salgyňyzyň ZIP kody" class="checkoutInputs">
+        <input type="tel" name="phone" placeholder="Telefon Belgi" class="checkoutInputs">
+        <input type="hidden" name="user" value="13">
+        <input type="submit" value="Sarga" class="bg-violet-800 text-white rounded-xl p-2">
+    </form>
+</section>
+

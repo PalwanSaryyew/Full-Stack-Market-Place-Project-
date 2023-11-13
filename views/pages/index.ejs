@@ -7,10 +7,46 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/menu.css">
     <style>
+        #bagetContainer{
+            display: none;
+        }
+        #bagetSection.active{
+            display: block;
+        }
+        #bagetContainer.active{
+            display: block;
+        }#checkoutWindow.active{
+            display: grid;
+        }
+        #checkoutWindowEmtyZone.active{
+            display: block;
+        }
+        
+        input[type="number"]::-webkit-inner-spin-button{
+            display: none;
+        }
+        input[type="number"]::-webkit-outer-spin-button {
+            display: none;
+        }
+
     </style>
 </head>
-<body class="bg-slate-200">
+<body class="bg-slate-100">
+    <!-- menu -->
     <%- include('./../partials/_menu') %>
+    
+    <!-- messages container -->
+    <div id="messagesContainer" class="messagesZ fixed top-0 grid"></div>
+    
+    <!-- baget partial -->
+    <%- include('./../partials/_baget') %>
+
+    <!-- products page -->
     <%- include('./../partials/_products') %>
+
+    <script src="/js/baget.js">
+    </script>
+    <script src="/js/menu.js">
+    </script>
 </body>
 </html>

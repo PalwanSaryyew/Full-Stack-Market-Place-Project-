@@ -20,128 +20,15 @@
 <body class="bg-slate-200">
     <!-- menu -->
     <%- include('./../partials/_menu') %>
+    
     <!-- messages container -->
     <div id="messagesContainer" class="z-20 fixed top-0 w-full grid place-content-center"></div>
-    <!-- baget button -->
-    <button id="bagetButton" class="z-20 fixed top-1 right-1 bg-violet-700 py-1 px-2 rounded-full text-white">Sebet</button>
-    <!-- buget sectiion container -->
-    <div id="bagetContainer" class="z-10 w-3/4 fixed right-0 bottom-0 top-0">
-        <!-- baget -->
-        <div id="baget" class="p-3 space-y-3 w-full h-[90%] bg-slate-300 overflow-y-auto">
-        </div>
-        <div class="w-full h-[10%] bg-green-200">
-            <!-- total price -->
-            <div id="totalPrice" class="bg-violet-500 text-white p-1 inline-block">
-            </div>
-            <!-- checkout button -->
-            <button id="checkoutButton" class="bg-violet-700 text-white p-1 inline-block">
-                Sarga
-            </button>
-        </div>
-    </div>
     
+    <!-- baget partial -->
+    <%- include('./../partials/_baget') %>
 
-    <!-- products container -->
-    <div class="container mx-auto gap-3 p-5 bg-inherit grid grid-cols-3 justify-center">
-     
-        <% result.forEach(product => { %>
-
-        <!-- product contain -->
-        <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg grid shadow-2xl">
-            <!-- product image -->
-            <div>
-                <img src="<%= product.image %>" alt="">
-            </div>
-            <!-- product price -->
-            <div class="text-center text-red-500 font-black">
-
-                <% if (product.sale_price) { %>
-
-                <!-- price -->
-                <div class="line-through decoration-2  decoration-red-800">
-                    <%= product.price %><span class="text-black">TMT</span>
-                </div>
-                <!-- sale price -->
-                <div>
-                    <%= product.sale_price %><span class="text-black">TMT</span>
-                </div>
-
-                <% } else { %>
-                <!-- price -->
-                <div class="decoration-2  decoration-red-800">
-                    <%= product.price %><span class="text-black">TMT</span>
-                </div>
-                <% } %>
-                
-            </div>
-            <!-- product name -->
-            <div class="text-center text-sm">
-                <%= product.name %>
-            </div>
-            <!-- product rating -->
-            <div class="relative">
-                <!-- uninspiring raitin box -->
-                <div class="flex justify-center space-x-1 z-0">
-                    <!-- svg box -->
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
-                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
-                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
-                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
-                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 512 512">
-                            <path  class="stroke-[#ffd700] stroke-[50px]" d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-                        </svg>
-                    </div>
-                </div>
-
-
-            </div>
-            <!-- add cart button box -->
-            <div class="self-end justify-self-center">
-                <input type="button" value="Sebede Sal" 
-                       data-id="<%= product.id %>"
-                       data-name="<%= product.name %>"
-                       data-price="<% if (product.sale_price) { %>
-                            <%= product.sale_price %>
-                            <% } else { %>
-                            <%= product.price %>
-                            <% } %>"
-                       data-image="<%= product.image %>"
-                       class="btn-add-to-cart bg-violet-800 text-white p-[0.50rem] rounded-lg">
-            </div>
-        </div>
-        <% }) %>
-
-    </div>
-    <!-- checkout window -->
-    <div id="checkoutWindow" class="hidden fixed top-0 left-0 w-screen h-screen place-items-center bg-slate-400/60 backdrop-blur-sm">
-        <form id="checkoutForm" class="h-4/5 w-3/5 z-[15] grid bg-violet-400 p-12 rounded-lg items-start justify-stretch">
-            <input type="text" name="country" placeholder="Ýurt" value="Turkmenistan" class="checkoutInputs">
-            <input type="text" name="shipping_address1" placeholder="Welaýat" class="checkoutInputs">
-            <input type="text" name="shipping_address2" placeholder="Etrap" class="checkoutInputs">
-            <input type="text" name="city" placeholder="Şäher/Oba/Şäherçe" class="checkoutInputs">
-            <input type="text" name="zip" placeholder="Salgyňyzyň ZIP kody" class="checkoutInputs">
-            <input type="tel" name="phone" placeholder="Telefon Belgi" class="checkoutInputs">
-            <input type="hidden" name="user" value="13">
-            <input type="submit" value="Sarga" class="bg-violet-800 text-white rounded-xl p-2">
-        </form>
-    </div>
+    <!-- products page -->
+    <%- include('./../partials/_products') %>
 
     <script src="/js/baget.js">
     </script>

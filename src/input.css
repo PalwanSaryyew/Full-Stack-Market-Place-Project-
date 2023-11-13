@@ -3,7 +3,27 @@
     .checkoutInputs{
         @apply p-2 outline-none focus:ring rounded-md
     }
+    .menu-links{
+        @apply px-3 grid items-center cursor-pointer font-bold
+    }
+    .menu-links:hover{
+        @apply shadow-md text-white
+    }
+    .btn-add-to-cart{
+        @apply hover:scale-105 hover:drop-shadow-lg active:scale-95 transition-all duration-75
+    }
 }
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+    .messagesZ{
+        @apply z-50
+    }
+    .bagetZ{
+        @apply z-10
+    }
+    .checkoutZ{
+        @apply z-20
+    }
+}
 

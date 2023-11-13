@@ -1,64 +1,75 @@
-<section class="container justify-center mt-16 mx-auto gap-3 p-5 bg-inherit grid grid-cols-3 lg:grid-cols-6">
+<section>
+<!-- products container -->
+<div class="container justify-center mt-16 mx-auto gap-3 p-5 bg-inherit grid 
+    grid-cols-3
+    md:grid-cols-4
+    lg:grid-cols-6
+    xl:grid-cols-8
+    2xl:grid-cols-10 2xl:text-xs 2xl:gap-2
+">
      
     <% result.forEach(product => { %>
 
     <!-- product contain -->
-    <div class="justify-self-stretch bg-white p-5 space-y-2 rounded-lg grid shadow-2xl">
+    <div class="justify-self-stretch bg-white overflow-hidden rounded-lg grid shadow-2xl">
 
         <!-- product image -->
-        <div>
+        <div class="self-start">
             <img src="<%= product.image %>" alt="">
         </div>
-        <!-- product price -->
 
-        <div class="text-center text-red-500 font-black">
+        <!-- product detail box -->
+        <div class="self-end grid gap-y-1 p-1">
+            <!-- product price -->
+            <div class="text-center text-red-500 font-black">
 
-            <% if (product.sale_price) { %>
+                <% if (product.sale_price) { %>
 
-            <!-- price -->
-            <div class="line-through decoration-2  decoration-red-800">
-                <%= product.price %><span class="text-black">TMT</span>
+                <!-- price -->
+                <div class="line-through decoration-2  decoration-red-800">
+                    <%= product.price %><span class="text-black">TMT</span>
+                </div>
+                <!-- sale price -->
+                <div>
+                    <%= product.sale_price %><span class="text-black">TMT</span>
+                </div>
+
+                <% } else { %>
+
+                <!-- price -->
+                <div class="decoration-2  decoration-red-800">
+                    <%= product.price %><span class="text-black">TMT</span>
+                </div>
+                <% } %>
             </div>
-            <!-- sale price -->
-            <div>
-                <%= product.sale_price %><span class="text-black">TMT</span>
+
+            <!-- product name -->
+            <div class="text-center text-sm">
+                <%= product.name %>
             </div>
 
-            <% } else { %>
-
-            <!-- price -->
-            <div class="decoration-2  decoration-red-800">
-                <%= product.price %><span class="text-black">TMT</span>
+            <!-- product rating -->
+            <div class="relative">
+                <!-- ! son -->
             </div>
-            <% } %>
-            
-        </div>
 
-        <!-- product name -->
-        <div class="text-center text-sm">
-            <%= product.name %>
-        </div>
-
-        <!-- product rating -->
-        <div class="relative">
-            <!-- ! son -->
-        </div>
-
-        <!-- add cart button box -->
-        <div class="self-end justify-self-center">
-            <input type="button" value="Sebede Sal" 
-                   data-id="<%= product.id %>"
-                   data-name="<%= product.name %>"
-                   data-price="<% if (product.sale_price) { %>
-                        <%= product.sale_price %>
-                        <% } else { %>
-                        <%= product.price %>
-                        <% } %>"
-                   data-image="<%= product.image %>"
-                   class="btn-add-to-cart bg-violet-800 text-white p-[0.50rem] rounded-lg">
+            <!-- add cart button box -->
+            <div class="self-end justify-self-center">
+                <input type="button" value="Sebede Sal" 
+                    data-id="<%= product.id %>"
+                    data-name="<%= product.name %>"
+                    data-price="<% if (product.sale_price) { %>
+                            <%= product.sale_price %>
+                            <% } else { %>
+                            <%= product.price %>
+                            <% } %>"
+                    data-image="<%= product.image %>"
+                    class="btn-add-to-cart bg-violet-800 text-white rounded-lg p-[0.50rem] 2xl:p-2 2xl:text-xs">
+            </div>
         </div>
     </div>
 
     <% }) %>
 
+</div>
 </section>
