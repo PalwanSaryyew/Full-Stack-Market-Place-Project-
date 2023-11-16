@@ -6,12 +6,20 @@
     .menu-links{
         @apply px-3 grid items-center cursor-pointer font-bold
     }
+    .menu-links-b{
+        @apply px-6 cursor-pointer font-semibold bg-slate-400 border-b border-red-600
+    }
     .menu-links:hover{
         @apply shadow-md text-white
     }
     .btn-add-to-cart{
         @apply hover:scale-105 hover:drop-shadow-lg active:scale-95 transition-all duration-75
     }
+    @media (max-width: 1024px) {
+        aside.active {
+          @apply grid;
+        }
+      }
 }
 @tailwind components;
 @tailwind utilities;

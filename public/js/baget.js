@@ -55,7 +55,7 @@ function toBagetButtons() {
         let successMessageElement = document.createElement('div')
         successMessageElement.setAttribute("id", count);
         successMessageElement.style.animation
-        successMessageElement.innerHTML=`<div id='newMessage_${count}' class='z-20 text-white animate-newMessage p-3 shadow-2xl rounded-md mt-1 bg-red-500'>Bu Haryt Öň Hem Sebetde</div>`
+        successMessageElement.innerHTML=`<div id='newMessage_${count}' class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-red-500'>Bu Haryt Öň Hem Sebetde</div>`
         count++
         messagesContainer.appendChild(successMessageElement)
       } else { // on gosulmadyk bolsa
@@ -68,7 +68,7 @@ function toBagetButtons() {
         });
         let errorMessageElement = document.createElement('div')
         errorMessageElement.setAttribute("id", count);
-        errorMessageElement.innerHTML=`<div id='newMessage_${count}' class='z-20 text-white animate-newMessage p-3 shadow-2xl rounded-md mt-1 bg-green-500'>Haryt sebede Goşuldy</div>`
+        errorMessageElement.innerHTML=`<div id='newMessage_${count}' class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-green-500'>Haryt sebede Goşuldy</div>`
         count++
         messagesContainer.appendChild(errorMessageElement)
         let newCart = await updateBaget(cart);

@@ -1,10 +1,10 @@
 <section>
 <!-- products container -->
-<div class="container justify-center mt-16 mx-auto gap-3 p-5 bg-inherit grid 
+<div class="container justify-center lg:mt-16 mx-auto gap-3 p-5 bg-inherit grid 
     grid-cols-3
-    md:grid-cols-4
-    lg:grid-cols-6
-    xl:grid-cols-8
+    md:grid-cols-4 md:text-sm
+    lg:grid-cols-6 lg:text-sm
+    xl:grid-cols-8 xl:text-sm
     2xl:grid-cols-10 2xl:text-xs 2xl:gap-2
 ">
      
@@ -64,7 +64,9 @@
                             <%= product.price %>
                             <% } %>"
                     data-image="<%= product.image %>"
-                    class="btn-add-to-cart bg-violet-800 text-white rounded-lg p-[0.50rem] 2xl:p-2 2xl:text-xs">
+                    class="btn-add-to-cart bg-violet-800 text-white rounded-lg p-2
+                        xl:text-sm xl:p-[0.35rem]
+                        2xl:p-2 2xl:text-xs">
             </div>
         </div>
     </div>
