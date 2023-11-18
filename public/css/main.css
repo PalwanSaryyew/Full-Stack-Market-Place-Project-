@@ -461,8 +461,8 @@ video {
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(220 38 38 / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   font-weight: 600;
@@ -636,6 +636,10 @@ video {
   }
 }
 
+.backface-hidden {
+  backface-visibility: hidden !important;
+}
+
 .fixed {
   position: fixed;
 }
@@ -733,28 +737,12 @@ video {
   height: 100vh;
 }
 
-.h-\[\] {
-  height: ;
-}
-
-.h-\[90\] {
-  height: 90;
-}
-
-.h-\[90\%\] {
-  height: 90%;
-}
-
 .max-h-0 {
   max-height: 0px;
 }
 
 .w-10 {
   width: 2.5rem;
-}
-
-.w-2\/5 {
-  width: 40%;
 }
 
 .w-3\/5 {
@@ -767,6 +755,10 @@ video {
 
 .w-8 {
   width: 2rem;
+}
+
+.w-\[90\%\] {
+  width: 90%;
 }
 
 .w-auto {
@@ -784,10 +776,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-\[90\%\] {
-  width: 90%;
 }
 
 .max-w-0 {
@@ -866,10 +854,6 @@ video {
   place-items: center;
 }
 
-.content-start {
-  align-content: flex-start;
-}
-
 .content-end {
   align-content: flex-end;
 }
@@ -905,6 +889,10 @@ video {
 
 .gap-y-1 {
   row-gap: 0.25rem;
+}
+
+.gap-y-5 {
+  row-gap: 1.25rem;
 }
 
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
@@ -1028,14 +1016,13 @@ video {
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 
-.bg-slate-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
 .bg-slate-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+}
+
+.bg-slate-700\/70 {
+  background-color: rgb(51 65 85 / 0.7);
 }
 
 .bg-violet-400 {
@@ -1110,6 +1097,11 @@ video {
   line-height: 1.5rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1178,6 +1170,16 @@ video {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
 .messagesZ {
   z-index: 50;
 }
@@ -1238,16 +1240,12 @@ video {
     display: none;
   }
 
-  .lg\:h-4\/5 {
-    height: 80%;
+  .lg\:w-2\/5 {
+    width: 40%;
   }
 
   .lg\:w-3\/5 {
     width: 60%;
-  }
-
-  .lg\:w-2\/5 {
-    width: 40%;
   }
 
   .lg\:grid-cols-6 {

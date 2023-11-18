@@ -7,7 +7,7 @@
         @apply px-3 grid items-center cursor-pointer font-bold
     }
     .menu-links-b{
-        @apply px-6 cursor-pointer font-semibold bg-slate-400 border-b border-red-600
+        @apply py-3 px-6 cursor-pointer font-semibold border-b border-red-600
     }
     .menu-links:hover{
         @apply shadow-md text-white
@@ -19,9 +19,21 @@
         aside.active {
           @apply grid;
         }
-      }
+    }
 }
 @tailwind components;
+@layer components{
+    .rotate-y-180{
+        transform: rotateY(180deg)
+    }
+    .backface-visible {
+        backface-visibility: visible !important;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden !important;
+    }
+}
 @tailwind utilities;
 @layer utilities {
     .messagesZ{

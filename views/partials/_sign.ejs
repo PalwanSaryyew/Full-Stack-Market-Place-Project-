@@ -1,0 +1,27 @@
+<!-- checkout section container -->
+<section class="fixed inset-0 grid place-items-center bg-black/25 backdrop-blur-sm" style="perspective: 1000px;">
+    <form id="registerWindow" class="absolute gap-y-5 w-[90%] lg:w-2/5 grid bg-violet-400 p-12 rounded-lg items-start justify-stretch backface-hidden transition-all duration-1000" style="transform: rotateY(0deg); ">
+        <input type="button" value="Öň hem ýazgyda" onclick="loginOrRegister()" class="bg-violet-800 text-white rounded-xl p-2">
+        <div>
+            <input type="checkbox" name="is_admin" id="is_admin"><label for="is_admin" class="text-white">Siz Telekeçimi</label>
+        </div>
+        <input type="text" name="name" placeholder="Adyňyz" class="checkoutInputs">
+        <input type="text" name="email" placeholder="Elektron Poşta" class="checkoutInputs">
+        <input type="tel" name="phone" placeholder="Tel. Belgi" class="checkoutInputs">
+        <input type="password" name="password" placeholder="Parol" class="checkoutInputs">
+        <input type="password" name="password" placeholder="Paroly gaýtala" class="checkoutInputs">
+        <input type="text" name="country" placeholder="Welaýat" class="hidden isAdminInputs checkoutInputs">
+        <input type="text" name="city" placeholder="Şäher/Oba/Etrap" class="hidden isAdminInputs checkoutInputs">
+        <input type="text" name="street" placeholder="Köçe" class="hidden isAdminInputs checkoutInputs">
+        <input type="text" name="apartment" placeholder="Bina" class="hidden isAdminInputs checkoutInputs">
+        <input type="text" name="zip" placeholder="ZIP kod" class="hidden isAdminInputs checkoutInputs">
+        <input type="submit" value="Indiki" class="bg-violet-800 text-white rounded-xl p-2">
+    </form>
+
+    <form id="loginWindow" class="absolute gap-y-5 w-[90%] lg:w-2/5 grid bg-violet-400 p-12 rounded-lg items-start justify-stretch backface-hidden transition-all duration-1000" style="transform: rotateY(180deg);">
+        <input type="button" value="Täze ýazylmak" onclick="loginOrRegister()" class="bg-violet-800 text-white rounded-xl p-2">
+        <input autocomplete="username" type="text" name="user" placeholder="Ad/Tel./E.posta" class="checkoutInputs">
+        <input autocomplete="current-password" type="password" name="password" placeholder="Parol" class="checkoutInputs">
+        <input type="submit" value="Indiki" class="bg-violet-800 text-white rounded-xl p-2">
+    </form>
+</section>
