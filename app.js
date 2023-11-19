@@ -1,9 +1,6 @@
 import express from "express";
 const app = express();
 
-/* import session from 'express-session';
-app.use(session({secret: 'secret'})) */
-
 // Envirement Config
 import dotenv from "dotenv";
 dotenv.config()
@@ -36,9 +33,6 @@ app.set('view engine', 'ejs')
 import {errorHandler} from './helpers/error.handler.js'
 app.use(errorHandler)
 
-// api url
-const api = process.env.API_URL
-
 // main routes
 app.get('/', async (req,res)=>{
     const result = await getList()
@@ -46,17 +40,17 @@ app.get('/', async (req,res)=>{
 })
 
 import { router as productsRouter } from "./routers/pdoducts.js";
-app.use(api+'/products', productsRouter)
+app.use('/products', productsRouter)
 
 import { router as categoriesRouter } from "./routers/categories.js";
-app.use(api+'/categories', categoriesRouter)
+app.use('/categories', categoriesRouter)
 
 import { router as usersRouter } from "./routers/users.js";
-app.use(api+'/users', usersRouter)
+app.use('/users', usersRouter)
 
 import { router as ordersRouter } from "./routers/orders.js";
 import { getList } from "./models/product.js";
-app.use(api+'/orders', ordersRouter)
+app.use('/orders', ordersRouter)
 
 app.listen(3050,()=>{
     console.log('http://localhost:3050'); 
