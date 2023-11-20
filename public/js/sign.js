@@ -76,6 +76,7 @@ loginWindow.addEventListener('submit', async e=>{
 
   const user = loginWindow.user.value
   const password = loginWindow.password.value
+  let count = 0;
 
       fetch("http://localhost:3050/users/login", {
         method: "POST",
@@ -87,15 +88,21 @@ loginWindow.addEventListener('submit', async e=>{
       })
         .then((response) => response.json())
         .then((data) => {
-          
-          const successMessageElement = document.createElement("div");
-          successMessageElement.setAttribute("id", "loginsuccessmessage");
-          successMessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-green-500'>Login üstünlikli</div>`;
-          messagesContainer.appendChild(successMessageElement);
-          setTimeout(() => {
-            const currentUrl = window.location.href;
-            window.location.href = currentUrl;
-          }, 3000);
+          if(data.success){
+            const successMessageElement = document.createElement("div");
+            successMessageElement.setAttribute("id", "loginsuccessmessage");
+            successMessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-green-500'>Login üstünlikli</div>`;
+            messagesContainer.appendChild(successMessageElement);
+            setTimeout(() => {
+              const currentUrl = window.location.href;
+              window.location.href = currentUrl;
+            }, 3000);
+          }else{
+            const MessageElement = document.createElement("div");
+            MessageElement.setAttribute("id", "loginerrormessage"+count);
+            MessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-red-500'>${data.message}</div>`;
+            messagesContainer.appendChild(MessageElement);
+          }
         })
         .catch((error) => {
           const MessageElement = document.createElement("div");

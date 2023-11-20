@@ -33,11 +33,16 @@ app.set('view engine', 'ejs')
 import {errorHandler} from './helpers/error.handler.js'
 app.use(errorHandler)
 
+//import {getList as categoryList} from "./models/product.js";
+
 // main routes
-app.get('/', async (req,res)=>{
-    const result = await getList()
-    res.render('pages/index', {result})
-})
+app.get("/", async (req, res) => {
+  await getList().then( products=>{
+    console.log(products);
+    res.render("pages/index", products);
+  })
+});
+  
 
 import { router as productsRouter } from "./routers/pdoducts.js";
 app.use('/products', productsRouter)

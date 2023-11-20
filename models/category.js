@@ -2,7 +2,7 @@ import pool from './db.js';
 
 export async function getList(){
     const [row] = await pool.query(`
-        select * from categories;
+    SELECT * FROM e-shop-api.categories;
     `)
     return row
 };
