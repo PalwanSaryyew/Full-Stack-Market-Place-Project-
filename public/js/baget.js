@@ -219,7 +219,6 @@ checkoutForm.addEventListener('submit', async e=>{
 })
 
 
-
 document.addEventListener("DOMContentLoaded", async () => { // sahypa doly yuklenenden son 
   const cart = await updateBaget() // hazirki sebedi al
   toBagetButtons(); // sebede gosmak dugmelerinin yerine yetirmeli isleri

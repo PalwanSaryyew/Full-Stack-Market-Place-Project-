@@ -77,8 +77,8 @@ export const createUser = async (req,res)=>{
 };
 export const loginUser = async (req,res)=>{
     const result = await user.getByEmail(req.body.user);
-    if(!result) return res.send({success:false, message: 'yalnys email'});
-    if(!bcrypt.compareSync(req.body.password, result.password)) return res.send({success:false, message: 'yalnys parol'});
+    if(!result) return res.status(400).send({success:false, message: 'yalnys email'});
+    if(!bcrypt.compareSync(req.body.password, result.password)) return res.status(400).send({success:false, message: 'yalnys parol'});
     const token = await jwt.sign(
         {
         id: result.id,
@@ -89,10 +89,6 @@ export const loginUser = async (req,res)=>{
             expiresIn: '7d'
         }
     )
-    res.cookie('jwt', token, { //ulajyn girisi üstünklükli bolan ýagdaýynda kukilerijw ady bilen kliende ugratyar
-        httpOnly: true,
-        maxAge: 1000*60*60*168
-    })
     res.status(200).send({success:true, token})
 };
 export const deleteUser = async (req,res)=>{
