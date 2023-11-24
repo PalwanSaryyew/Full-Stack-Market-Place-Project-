@@ -179,9 +179,3 @@ export async function addToCart(req,res){
         res.redirect('/cart')
     }
 };
-export function cart(req,res){
-    const cart = req.session.cart;
-    const total = req.session.total;
-
-    res.render('pages/cart', {cart, total})
-}
