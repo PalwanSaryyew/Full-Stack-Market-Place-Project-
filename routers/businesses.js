@@ -4,6 +4,6 @@ export const router = express.Router();
 router.get('/', );
 router.post('/', );
 router.get('/:id', );
-//anly businesses
+//only businesses
 router.put('/:id', );
 router.delete('/:id', );

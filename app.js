@@ -1,6 +1,10 @@
 import express from "express";
 const app = express();
 
+//cookie parser
+import cookieParser from "cookie-parser";
+app.use(cookieParser());
+
 // Envirement Config
 import dotenv from "dotenv";
 dotenv.config()
@@ -53,6 +57,15 @@ app.use('/users', usersRouter)
 
 import { router as businessesRouter } from "./routers/businesses.js";
 app.use('/businesses', businessesRouter)
+
+import { router as couponsRouter } from "./routers/coupons.js";
+app.use('/coupons', couponsRouter)
+
+import { router as wishlistsRouter } from "./wishlists/coupons.js";
+app.use('/wishlists', wishlistsRouter)
+
+import { router as adressesRouter } from "./adresses/coupons.js";
+app.use('/adresses', adressesRouter)
 
 import { router as ordersRouter } from "./routers/orders.js";
 import { getList } from "./models/product.js";

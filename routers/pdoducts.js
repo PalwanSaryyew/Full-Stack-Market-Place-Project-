@@ -5,17 +5,16 @@ export const router = express.Router();
 
 router.post('/add_to_cart', addToCart);
 
-
-router.put('/images/:id',  upload.array('images'), uploadImages)
-
 router.get('/p/:id', getProduct);
-router.put('/p/:id', upload.single('image'), updateProduct);
-router.post('/p/:id', upload.single('image'), createProduct);
-router.delete('/p/:id', deleteProduct);
-
 router.get('/', getProducts);
 router.get('/count', productCount);
 router.get('/featured', getFeaturedProducts);
 router.get('/:business');
 router.get('/:business/count');
 router.get('/:business/featured');
+
+// for onlu businesses
+router.put('/images/:id',  upload.array('images'), uploadImages)
+router.put('/p/:id', upload.single('image'), updateProduct);
+router.post('/p/:id', upload.single('image'), createProduct);
+router.delete('/p/:id', deleteProduct);

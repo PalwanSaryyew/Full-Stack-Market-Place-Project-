@@ -27,22 +27,17 @@ export async function getByEmail(email){
     `,[email])
     return row[0]
 };
-export async function createRow(a,b,c,d,e,f,g,h,i,j){
+export async function createRow(a,b,c,d,e){
     const [row] = await pool.query(`
         INSERT INTO users(
-            name,
-            email,
+            username,
+            phone_number,
             password,
-            phone,
-            is_admin,
-            street,
-            apartment,
-            zip,
-            city,
-            country
+            code_date_time,
+            code
         )
-        VALUES(?,?,?,?,?,?,?,?,?,?);
-    `,[a,b,c,d,e,f,g,h,i,j])
+        VALUES(?,?,?,?,?);
+    `,[a,b,c,d,e])
     return row
 };
 export async function countRow(id){

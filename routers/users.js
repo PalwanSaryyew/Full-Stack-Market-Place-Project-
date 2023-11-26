@@ -7,13 +7,11 @@ router.get('/all/:business/', getUsers)
 
 //for own
 router.get('/u/:id', getUser)
+router.put('/u/:id',)
+router.delete('/u/:id', deleteUser)
 
 //all users
 router.get('/count', countUser)
 router.get('/:business/count',)
-
-router.put('/u/:id',)
-router.post('/u/:id', createUser)
-router.delete('/u/:id', deleteUser)
-
+router.post('/', createUser)
 router.post('/login', loginUser)

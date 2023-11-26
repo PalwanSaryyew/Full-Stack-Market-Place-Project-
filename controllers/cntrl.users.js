@@ -38,31 +38,69 @@ export const createUser = async (req,res)=>{
     };
 
     try {
-        const isUserYes = await user.getRow(req.body.name);
-        if(isUserYes) return res.status(400).send({
+
+        if(req.body.validation_code){
+            const decodedToken = jwt.verify(req.cookie['signtoken'], process.env.JWT_SECRET);
+
+            const nowDate = new Date();
+            const differenceInMilliseconds = decodedToken.codeValidTime.getTime() - nowDate.getTime();
+            const differenceInSeconds = differenceInMilliseconds / 1000;
+
+            if (differenceInSeconds < (15 * 60)) {
+                const row = await user.createRow(
+                    decodedToken.username,
+                    decodedToken.phoneNumber,
+                    decodedToken.hashedPass,
+                )
+                return res.send({
+                    success:true,
+                    message: 'Üstünlikli ýazyldyňyz'
+                })
+            }else{
+                return res.send({
+                    success:false,
+                    message: 'kodunyzyň wagty doldy täzeden registirasiýa boluň '
+                })
+            }
+        }
+
+        const isUserYes = await user.getRow(req.body.usrname);
+        if(isUserYes) return res.send({
             success:false,
-            message: 'Bu UserName onden bar'
+            message: 'Bu ulanyjy ady öň hem ýazgyda'
         });
 
-        const isEmailYes = await user.getByEmail(req.body.email);
-        if(isEmailYes) return res.status(400).send({
+        const isPhoneYes = await user.getByPhone(req.body.phone_number);
+        if(isPhoneYes) return res.send({
             success:false,
-            message: 'Bu Email onden bar'
+            message: 'Bu Telefon öň hem ýazgyda'
         });
-      
+        const username = req.body.username;
+        const phoneNumber = req.body.phone_number;
         const hashedPass = bcrypt.hashSync(req.body.password, 10);
-        const row = await user.createRow(
-            req.body.name,
-            req.body.email,
+        const codeValidTime = new Date();
+        const randomLoginNumber = Math.floor(Math.random() * 99999);
+
+        console.log(randomLoginNumber) //! häzirlikçe çonsola yazdyrýan
+
+        const token = jwt.sign(
+        {
+            username,
+            phoneNumber,
             hashedPass,
-            req.body.phone,
-            req.body.is_admin,
-            req.body.street,
-            req.body.apartment,
-            req.body.zip,
-            req.body.city,
-            req.body.country
-        )
+            codeValidTime,
+        },
+         process.env.JWT_SECRET,
+        {expiresIn: 15 * 60})
+
+        res.cookie('signtoken', token, {
+            httpOnly: true,
+            maxAge: 15 * 60
+        })
+
+
+
+
         return res.status(201).send({
             success:true,
             row
