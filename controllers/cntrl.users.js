@@ -27,7 +27,7 @@ export const countUser = async (req,res)=>{
     res.status(200).send({success:true,result})
 };
 export const createUser = async (req,res)=>{
-
+    
     if(req.body.is_admin==true){
         if (!req.body.phone || req.body.phone === ""){
             return res.status(400).send({
@@ -40,95 +40,123 @@ export const createUser = async (req,res)=>{
     try {
 
         if(req.body.validation_code){
-            const decodedToken = jwt.verify(req.cookie['signtoken'], process.env.JWT_SECRET);
-
+            const decodedToken = jwt.verify(req.cookies.signtoken, process.env.JWT_SECRET);
+            const validationCode = await user.getValidationCode(decodedToken.insertId)
+            const codeValidTime= new Date(decodedToken.codeValidTime);
             const nowDate = new Date();
-            const differenceInMilliseconds = decodedToken.codeValidTime.getTime() - nowDate.getTime();
+            const differenceInMilliseconds = nowDate.getTime() - codeValidTime.getTime();
             const differenceInSeconds = differenceInMilliseconds / 1000;
 
             if (differenceInSeconds < (15 * 60)) {
-                const row = await user.createRow(
-                    decodedToken.username,
-                    decodedToken.phoneNumber,
-                    decodedToken.hashedPass,
-                )
-                return res.send({
-                    success:true,
-                    message: 'Üstünlikli ýazyldyňyz'
-                })
+                if (validationCode.code===Number(req.body.validation_code)){
+                    console.log(decodedToken.hashedPass);
+                    await user.createRow(
+                        decodedToken.username,
+                        decodedToken.phoneNumber,
+                        decodedToken.hashedPass,
+                    )
+                    return res.send({
+                        success:true,
+                        message: 'Üstünlikli ýazyldyňyz'
+                    })
+                }else{
+                    return res.send({
+                        success:false,
+                        message: 'Ýalňyş kod'
+                    })
+                }
             }else{
                 return res.send({
                     success:false,
-                    message: 'kodunyzyň wagty doldy täzeden registirasiýa boluň '
+                    message: 'kodunyzyň wagty doldy ýa-da ýalňyş täzeden registirasiýa boluň '
                 })
             }
+        }else{
+            const isUserYes = await user.getRow(req.body.username);
+            if(isUserYes) return res.send({
+                success:false,
+                message: 'Bu ulanyjy ady öň hem ýazgyda'
+            });
+    
+            const isPhoneYes = await user.getByPhone(req.body.phone_number);
+            if(isPhoneYes) return res.send({
+                success:false,
+                message: 'Bu Telefon öň hem ýazgyda'
+            });
+            const username = req.body.username;
+            const phoneNumber = req.body.phone_number;
+            console.log(req.body.password, typeof req.body.password);
+            const hashedPass = bcrypt.hashSync(req.body.password, 10);
+            const codeValidTime = new Date();
+            const randomLoginNumber = Math.floor(Math.random() * 99999);
+            const {insertId} = await user.createValidationCode(randomLoginNumber)    
+            console.log(randomLoginNumber) //! häzirlikçe consola yazdyrýan
+            const token = jwt.sign(
+                {
+                    username,
+                    phoneNumber,
+                    hashedPass,
+                    codeValidTime,
+                    insertId
+                },
+                process.env.JWT_SECRET,
+                {expiresIn: 1000*60*15}
+            )
+            res.cookie('signtoken', token, {
+                httpOnly: true,
+                maxAge: 1000*60*15 
+            })
+    
+            return res.send({
+                success:true,
+                showCodeValidationInput:true,
+            })
         }
 
-        const isUserYes = await user.getRow(req.body.usrname);
-        if(isUserYes) return res.send({
-            success:false,
-            message: 'Bu ulanyjy ady öň hem ýazgyda'
-        });
-
-        const isPhoneYes = await user.getByPhone(req.body.phone_number);
-        if(isPhoneYes) return res.send({
-            success:false,
-            message: 'Bu Telefon öň hem ýazgyda'
-        });
-        const username = req.body.username;
-        const phoneNumber = req.body.phone_number;
-        const hashedPass = bcrypt.hashSync(req.body.password, 10);
-        const codeValidTime = new Date();
-        const randomLoginNumber = Math.floor(Math.random() * 99999);
-
-        console.log(randomLoginNumber) //! häzirlikçe çonsola yazdyrýan
-
-        const token = jwt.sign(
-        {
-            username,
-            phoneNumber,
-            hashedPass,
-            codeValidTime,
-        },
-         process.env.JWT_SECRET,
-        {expiresIn: 15 * 60})
-
-        res.cookie('signtoken', token, {
-            httpOnly: true,
-            maxAge: 15 * 60
-        })
-
-
-
-
-        return res.status(201).send({
-            success:true,
-            row
-        })
 
     } catch (error) {
+        console.log(error.message);
         return res.status(500).send({
             success:false,
             err: error.message
         })
     }
 };
+
+// login process
 export const loginUser = async (req,res)=>{
-    const result = await user.getByEmail(req.body.user);
-    if(!result) return res.status(400).send({success:false, message: 'yalnys email'});
-    if(!bcrypt.compareSync(req.body.password, result.password)) return res.status(400).send({success:false, message: 'yalnys parol'});
+    let isUser = await user.getByUsername(req.body.user);
+    if(isUser===undefined){
+        isUser = await user.getByPhone(req.body.user)
+        if (isUser===undefined) {
+            return res.send({success:false, message: 'Beýle ulanyjy ýok'});
+        }
+    }
+    const synchedPass = isUser.password;
+    const recievedPass = req.body.password;
+    const isPasswordCorrect = bcrypt.compareSync(recievedPass, synchedPass)
+    if(!isPasswordCorrect){
+        return res.send({success:false, message: 'Nädogry parol'});
+    }
     const token = await jwt.sign(
         {
-        id: result.id,
-        isAdmin: result.is_admin
+        id: isUser.id,
+        isAdmin: isUser.is_admin
         },
         process.env.JWT_SECRET,
         {
             expiresIn: '7d'
         }
     )
-    res.status(200).send({success:true, token})
+    res.locals.user=isUser.username
+    res.cookie('Bearer', token,{
+        httpOnly: true,
+        expiresIn: 1000 * 60 * 60 * 24 * 7
+    })
+    res.status(200).send({success:true})
 };
+
+// user deletetion
 export const deleteUser = async (req,res)=>{
     const result = await user.getById(req.params.id);
     if(!result) {

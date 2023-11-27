@@ -1,17 +1,7 @@
-function is15MinutesOrLess(time1, time2) {
-    const differenceInMilliseconds = time2.getTime() - time1.getTime();
-    const differenceInSeconds = differenceInMilliseconds / 1000;
-  
-    return differenceInSeconds < (15 * 60);
-  }
-  
-  const time1 = new Date();
-  const time2 = new Date();
-  
-  const is15MinutesOrLessResult = is15MinutesOrLess(time1, time2);
-  
-  if (is15MinutesOrLessResult) {
-    console.log("İki zaman nesnesinin farkı 15 dakikadan küçüktür.");
-  } else {
-    console.log("İki zaman nesnesinin farkı 15 dakikadan büyüktür.");
-  }
+import bcrypt from 'bcrypt';
+
+const hashedpass = bcrypt.hashSync('1234',10)
+console.log(hashedpass);
+const pass = '123'
+const result = bcrypt.compareSync('1234', '$2b$10$u3TXMEuefFod7aqsCfEZFuIr7pq.7zq3arGsc7.CTDTb75UO31mwS')
+console.log(result);

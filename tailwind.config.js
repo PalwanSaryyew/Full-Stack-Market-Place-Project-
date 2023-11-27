@@ -7,13 +7,13 @@ module.exports = {
         newMessage: {
           '10%':{
             maxHeight: "200px",
-            maxWidth: "200px",
+            maxWidth: "640px",
             padding: '5px',
             marginTop: '5px'
           },
           '90%':{
             maxHeight: "200px",
-            maxWidth: "200px",
+            maxWidth: "640px",
             padding: '5px',
             marginTop: '5px'
           },

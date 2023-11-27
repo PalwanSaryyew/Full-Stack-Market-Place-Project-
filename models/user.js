@@ -9,7 +9,7 @@ export async function getList(){
 export async function getRow(name){
     const [row] = await pool.query(`
         select * from users
-        WHERE name =?;
+        WHERE username =?;
     `,[name])
     return row[0]
 };
@@ -27,18 +27,32 @@ export async function getByEmail(email){
     `,[email])
     return row[0]
 };
-export async function createRow(a,b,c,d,e){
+export async function createRow(a,b,c){
     const [row] = await pool.query(`
         INSERT INTO users(
             username,
             phone_number,
-            password,
-            code_date_time,
+            password
+        )
+        VALUES(?,?,?);
+    `,[a,b,c])
+    return row
+};
+export async function createValidationCode(a){
+    const [row] = await pool.query(`
+        INSERT INTO validation_codes(
             code
         )
-        VALUES(?,?,?,?,?);
-    `,[a,b,c,d,e])
+        VALUES(?);
+    `,[a])
     return row
+};
+export async function getValidationCode(id){
+    const [row] = await pool.query(`
+        select * from validation_codes
+        WHERE id =?;
+    `,[id])
+    return row[0]
 };
 export async function countRow(id){
     const [row] = await pool.query(`
@@ -53,4 +67,18 @@ export async function deleteRow(id){
         WHERE id = ?;
     `,[id])
     return row
+};
+export async function getByPhone(phone_number){
+    const [row] = await pool.query(`
+        SELECT * FROM users
+        WHERE phone_number = ?;
+    `,[phone_number])
+    return row[0]
+};
+export async function getByUsername(username){
+    const [row] = await pool.query(`
+        SELECT * FROM users
+        WHERE username = ?;
+    `,[username])
+    return row[0]
 };

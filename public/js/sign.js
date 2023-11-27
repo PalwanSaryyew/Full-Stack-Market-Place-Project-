@@ -3,6 +3,7 @@ const registerWindow = document.getElementById("registerWindow");
 const isAdmin = document.getElementById("is_admin");
 const isAdminInputs = document.querySelectorAll('.isAdminInputs')
 
+
 function loginOrRegister() {
   const transformLogin = loginWindow.style.transform.split(",")[0].split("(")[1].split(")")[0];
   const transformRegister = registerWindow.style.transform.split(",")[0].split("(")[1].split(")")[0];
@@ -23,48 +24,53 @@ const signWindowClose = ()=>{
   signSection.classList.toggle('grid')
 }
 
-registerWindow.addEventListener('submit', async e=>{
-    e.preventDefault();
 
-    const is_admin = registerWindow.is_admin.value
-    const email = registerWindow.email.value
-    const phone = registerWindow.phone.value
-    const password = registerWindow.password.value
-    const country = registerWindow.country.value
-    const city = registerWindow.city.value
-    const street = registerWindow.street.value
-    const apartment = registerWindow.apartment.value
-    const zip = registerWindow.zip.value
-    const name = registerWindow.name.value
+var messageCount = 0;
+// register process
+registerWindow.addEventListener('submit', async e => {
+  e.preventDefault();
+  
 
-    try {
-        fetch('http://localhost:3050/users', {
-          method: 'POST',
-          body: JSON.stringify({
-            is_admin,
-            email,
-            phone,
-            password,
-            country,
-            city,
-            phone,
-            street,
-            apartment,
-            zip,
-            name
-          }),
-          headers: { "Content-Type": "application/json" }
-        }).then(response=> response.json())
-          .then(data=>{
-            loginWindow.user.value=email
-            loginWindow.password.value=password
-            loginOrRegister()
-          })
-      } catch (error) {
-        console.log(error);
+  const phone_number = registerWindow.phone.value
+  const password = registerWindow.password.value
+  const username = registerWindow.name.value
+  const validation_code = registerWindow.validation_code.value
+
+
+  fetch('http://localhost:3050/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      phone_number,
+      password,
+      username,
+      validation_code
+    }),
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message){
+        const messageElement = document.createElement("div");
+        messageElement.setAttribute('id', 'messageElemet'+messageCount)
+        messageCount++
+        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement">${data.message}</div>`
+        messagesContainer.appendChild(messageElement)
       }
+      if (data.showCodeValidationInput) {
+        showCodeValidationInput()
+      } else if (data.success) { 
+        loginWindow.user.value = username
+        loginWindow.password.value = password
+        loginOrRegister()
+      }
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 })
 
+// login process
 loginWindow.addEventListener('submit', async e=>{
   e.preventDefault();
 
@@ -81,15 +87,18 @@ loginWindow.addEventListener('submit', async e=>{
       })
         .then((response) => response.json())
         .then((data) => {
+
           
-          const successMessageElement = document.createElement("div");
-          successMessageElement.setAttribute("id", "loginsuccessmessage");
-          successMessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-green-500'>Login üstünlikli</div>`;
-          messagesContainer.appendChild(successMessageElement);
-          setTimeout(() => {
-            const currentUrl = window.location.href;
-            window.location.href = currentUrl;
-          }, 3000);
+            const successMessageElement = document.createElement("div");
+            successMessageElement.setAttribute("id", "loginsuccessmessage");
+            successMessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-green-500'>Login üstünlikli</div>`;
+            messagesContainer.appendChild(successMessageElement);
+            setTimeout(() => {
+              const currentUrl = window.location.href;
+              window.location.href = currentUrl;
+            }, 3000);
+          
+          
         })
         .catch((error) => {
           const MessageElement = document.createElement("div");
@@ -99,3 +108,7 @@ loginWindow.addEventListener('submit', async e=>{
         });
 
 })
+
+function showCodeValidationInput(){
+  document.getElementById('codeValidationInput').classList.remove('hidden')
+}

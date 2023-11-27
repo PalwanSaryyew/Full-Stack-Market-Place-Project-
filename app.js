@@ -20,7 +20,7 @@ app.use(express.raw());
 
 // http request loger
 import morgan from "morgan"
-app.use(morgan('tiny'))
+//app.use(morgan('tiny'))
 
 // token validator
 import { authJwt } from "./helpers/jwt.js";
@@ -40,7 +40,7 @@ app.use(errorHandler)
 // main routes
 app.get("/", async (req, res) => {
   await getList().then( products=>{
-    console.log(products);
+
     res.render("pages/index", products);
   })
 });
@@ -61,10 +61,10 @@ app.use('/businesses', businessesRouter)
 import { router as couponsRouter } from "./routers/coupons.js";
 app.use('/coupons', couponsRouter)
 
-import { router as wishlistsRouter } from "./wishlists/coupons.js";
+import { router as wishlistsRouter } from "./routers/wishlists.js";
 app.use('/wishlists', wishlistsRouter)
 
-import { router as adressesRouter } from "./adresses/coupons.js";
+import { router as adressesRouter } from "./routers/adresses.js";
 app.use('/adresses', adressesRouter)
 
 import { router as ordersRouter } from "./routers/orders.js";
