@@ -109,6 +109,7 @@ export const createUser = async (req,res)=>{
     
             return res.send({
                 success:true,
+                message: 'Kod Nomeriňize Ugradyldy',
                 showCodeValidationInput:true,
             })
         }
@@ -153,7 +154,7 @@ export const loginUser = async (req,res)=>{
         httpOnly: true,
         expiresIn: 1000 * 60 * 60 * 24 * 7
     })
-    res.status(200).send({success:true})
+    res.status(200).send({success:true, message:'Login Üstünlikli'})
 };
 
 // user deletetion

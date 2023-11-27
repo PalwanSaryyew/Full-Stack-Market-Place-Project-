@@ -77,35 +77,39 @@ loginWindow.addEventListener('submit', async e=>{
   const user = loginWindow.user.value
   const password = loginWindow.password.value
 
-      fetch("http://localhost:3050/users/login", {
-        method: "POST",
-        body: JSON.stringify({
-          user,
-          password,
-        }),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => response.json())
-        .then((data) => {
+  fetch("http://localhost:3050/users/login", {
+    method: "POST",
+    body: JSON.stringify({
+      user,
+      password,
+    }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message) {
+        const messageElement = document.createElement("div");
+        messageElement.setAttribute('id', 'messageElemet'+messageCount)
+        messageCount++
+        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement">${data.message}</div>`
+        messagesContainer.appendChild(messageElement)
+      }
+      if (data.success) {
+        setTimeout(() => {
+          const currentUrl = window.location.href;
+          window.location.href = currentUrl;
+        }, 3000);
+      }
 
-          
-            const successMessageElement = document.createElement("div");
-            successMessageElement.setAttribute("id", "loginsuccessmessage");
-            successMessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-green-500'>Login üstünlikli</div>`;
-            messagesContainer.appendChild(successMessageElement);
-            setTimeout(() => {
-              const currentUrl = window.location.href;
-              window.location.href = currentUrl;
-            }, 3000);
-          
-          
-        })
-        .catch((error) => {
-          const MessageElement = document.createElement("div");
-          MessageElement.setAttribute("id", "loginerrormessage");
-          MessageElement.innerHTML = `<div class='text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-red-500'>${error}</div>`;
-          messagesContainer.appendChild(MessageElement);
-        });
+
+    })
+    .catch((error) => {
+      const messageElement = document.createElement("div");
+        messageElement.setAttribute('id', 'messageElemet'+messageCount)
+        messageCount++
+        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement">${error.message}</div>`
+        messagesContainer.appendChild(messageElement)
+    });
 
 })
 
