@@ -2,6 +2,7 @@ const loginWindow = document.getElementById("loginWindow");
 const registerWindow = document.getElementById("registerWindow");
 const isAdmin = document.getElementById("is_admin");
 const isAdminInputs = document.querySelectorAll('.isAdminInputs')
+const signSection = document.querySelector('#signSection')
 
 
 function loginOrRegister() {
@@ -53,7 +54,7 @@ registerWindow.addEventListener('submit', async e => {
         const messageElement = document.createElement("div");
         messageElement.setAttribute('id', 'messageElemet'+messageCount)
         messageCount++
-        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement">${data.message}</div>`
+        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement ${data.success ? 'bg-green-500' : 'bg-red-500'}">${data.message}</div>`
         messagesContainer.appendChild(messageElement)
       }
       if (data.showCodeValidationInput) {
@@ -67,6 +68,11 @@ registerWindow.addEventListener('submit', async e => {
     })
     .catch((error) => {
       console.log(error);
+      const messageElement = document.createElement("div");
+      messageElement.setAttribute('id', 'messageElemet' + messageCount)
+      messageCount++
+      messageElement.innerHTML = `<div id="newMessageElemet${messageCount}" class="messageElement bg-red-500">${error.message}</div>`
+      messagesContainer.appendChild(messageElement)
     })
 })
 
@@ -91,7 +97,7 @@ loginWindow.addEventListener('submit', async e=>{
         const messageElement = document.createElement("div");
         messageElement.setAttribute('id', 'messageElemet'+messageCount)
         messageCount++
-        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement">${data.message}</div>`
+        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="${data.success ? 'bg-green-500' : 'bg-red-500'} messageElement">${data.message}</div>`
         messagesContainer.appendChild(messageElement)
       }
       if (data.success) {
@@ -105,10 +111,10 @@ loginWindow.addEventListener('submit', async e=>{
     })
     .catch((error) => {
       const messageElement = document.createElement("div");
-        messageElement.setAttribute('id', 'messageElemet'+messageCount)
-        messageCount++
-        messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement">${error.message}</div>`
-        messagesContainer.appendChild(messageElement)
+      messageElement.setAttribute('id', 'messageElemet' + messageCount)
+      messageCount++
+      messageElement.innerHTML = `<div id="newMessageElemet${messageCount}" class="messageElement bg-red-500">${error.message}</div>`
+      messagesContainer.appendChild(messageElement)
     });
 
 })
