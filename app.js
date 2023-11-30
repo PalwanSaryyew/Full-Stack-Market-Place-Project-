@@ -38,11 +38,10 @@ import {errorHandler} from './helpers/error.handler.js'
 app.use(errorHandler)
 
 // main routes
+import { getList } from "./models/product.js";
 app.get("/", async (req, res) => {
-  await getList().then( products=>{
-
-    res.render("pages/index", products);
-  })
+  const products = await getList();
+  res.render('pages/index', {products})
 });
   
 
@@ -68,7 +67,6 @@ import { router as adressesRouter } from "./routers/adresses.js";
 app.use('/adresses', adressesRouter)
 
 import { router as ordersRouter } from "./routers/orders.js";
-import { getList } from "./models/product.js";
 app.use('/orders', ordersRouter)
 
 app.listen(3050,()=>{

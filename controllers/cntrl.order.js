@@ -18,7 +18,7 @@ export const getOrder = async (req, res) => {
         row.push(value);
         console.log(value);
       }));
-  
+      return res.send({result, row})
       return res.render('pages/order', {result, row})
       // return res.json({ result, row });
     } catch (error) {
@@ -86,24 +86,34 @@ export const createOrder = async (req,res)=>{
 
     const totalPrice = totalPrices.reduce((a, b) => {
         a += b;
-        return a;
-      }, 0);
+        return a 
+    }, 0);
 
     try {
         const row = await order.createRow(
             orderItemsIds,
-            req.body.shipping_address1,
-            req.body.shipping_address2,
-            req.body.city,
-            req.body.zip,
-            req.body.country,
+            [
+                //address_type: req.body.address_type,
+                req.body.address_line_1,
+                req.body.address_line_2,
+                req.body.city,
+                req.body.sate,
+                req.body.country,
+                req.body.zip
+            ],
             req.body.phone,
             totalPrice,
             req.body.user,
+            new Date()
         )
-        return res.status(201).json(row)
+        return res.send({
+            success:true,
+            message: 'Sargyt kabul edildi',
+            insertId:row.insertId
+        })
     } catch (error) {
-        return res.status(500).json({success: false, error: error.message}) 
+        console.log(error.message);
+        return res.status(500).send({success: false, message: error.message}) 
     }
 };
 export const updateOrder = async (req,res)=>{

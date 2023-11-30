@@ -25,13 +25,11 @@ const signWindowClose = ()=>{
   signSection.classList.toggle('grid')
 }
 
-
-var messageCount = 0;
+let messageCount = 0;
 // register process
 registerWindow.addEventListener('submit', async e => {
   e.preventDefault();
   
-
   const phone_number = registerWindow.phone.value
   const password = registerWindow.password.value
   const username = registerWindow.name.value

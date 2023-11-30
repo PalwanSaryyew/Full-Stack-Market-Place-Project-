@@ -20,21 +20,18 @@ export async function getByUser(id){
     `,[id])
     return row
 };
-export async function createRow(a,b,c,d,e,f,g,h,i){
+export async function createRow(a,b,c,d,e,f){
     const row = await pool.query(`
         INSERT INTO orders(
             order_items,
-            shipping_address1,
-            shipping_address2,
-            city,
-            zip,
-            country,
-            phone,
-            total_price,
-            user
+            shipping_address,
+            tracking_number,
+            total,
+            user_id,
+            date
         )
-        VALUES(JSON_ARRAY(?),?,?,?,?,?,?,?,?);
-    `,[a,b,c,d,e,f,g,h,i])
+        VALUES(JSON_ARRAY(?),JSON_ARRAY(?),?,?,?,?);
+    `,[a,b,c,d,e,f])
     return row[0];
 };
 export async function updateRow(a, b){

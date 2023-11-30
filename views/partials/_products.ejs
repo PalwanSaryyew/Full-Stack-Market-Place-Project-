@@ -1,78 +1,74 @@
 <section>
 
-<!-- products container -->
-<div class="container justify-center lg:mt-16 mx-auto gap-3 p-5 bg-inherit grid 
+    <!-- products container -->
+    <div class="container justify-center lg:mt-16 mx-auto gap-3 p-5 bg-inherit grid 
     grid-cols-3
     md:grid-cols-4 md:text-sm
     lg:grid-cols-6 lg:text-sm
     xl:grid-cols-8 xl:text-sm
     2xl:grid-cols-10 2xl:text-xs 2xl:gap-2
-">
-     
-    <% products.forEach(product => { %>
+    ">
 
-    <!-- product contain -->
-    <div class="justify-self-stretch bg-white overflow-hidden rounded-lg grid shadow-2xl">
+        <% products.forEach(product=> { %>
 
-        <!-- product image -->
-        <div class="self-start">
-            <img src="<%= product.image %>" alt="">
-        </div>
+            <!-- product contain -->
+            <div class="justify-self-stretch bg-white overflow-hidden rounded-lg grid shadow-2xl">
 
-        <!-- product detail box -->
-        <div class="self-end grid gap-y-1 p-1">
-            <!-- product price -->
-            <div class="text-center text-red-500 font-black">
-
-                <% if (product.sale_price) { %>
-
-                <!-- price -->
-                <div class="line-through decoration-2  decoration-red-800">
-                    <%= product.price %><span class="text-black">TMT</span>
-                </div>
-                <!-- sale price -->
-                <div>
-                    <%= product.sale_price %><span class="text-black">TMT</span>
+                <!-- product image -->
+                <div class="self-start">
+                    <img src="<%= product.image %>" alt="">
                 </div>
 
-                <% } else { %>
+                <!-- product detail box -->
+                <div class="self-end grid gap-y-1 p-1">
+                    <!-- product price -->
+                    <div class="text-center text-red-500 font-black">
 
-                <!-- price -->
-                <div class="decoration-2  decoration-red-800">
-                    <%= product.price %><span class="text-black">TMT</span>
-                </div>
-                <% } %>
-            </div>
+                        <% if (product.sale_price) { %>
 
-            <!-- product name -->
-            <div class="text-center text-sm">
-                <%= product.name %>
-            </div>
+                            <!-- price -->
+                            <div class="line-through decoration-2  decoration-red-800">
+                                <%= product.price %><span class="text-black">TMT</span>
+                            </div>
+                            <!-- sale price -->
+                            <div>
+                                <%= product.sale_price %><span class="text-black">TMT</span>
+                            </div>
 
-            <!-- product rating -->
-            <div class="relative">
-                <!-- ! son -->
-            </div>
+                            <% } else { %>
 
-            <!-- add cart button box -->
-            <div class="self-end justify-self-center">
-                <input type="button" value="Sebede Sal" 
-                    data-id="<%= product.id %>"
-                    data-name="<%= product.name %>"
-                    data-price="<% if (product.sale_price) { %>
+                                <!-- price -->
+                                <div class="decoration-2  decoration-red-800">
+                                    <%= product.price %><span class="text-black">TMT</span>
+                                </div>
+                                <% } %>
+                    </div>
+
+                    <!-- product name -->
+                    <div class="text-center text-sm">
+                        <%= product.name %>
+                    </div>
+
+                    <!-- product rating -->
+                    <div class="relative">
+                        <!-- ! son -->
+                    </div>
+
+                    <!-- add cart button box -->
+                    <div class="self-end justify-self-center">
+                        <input type="button" value="Sebede Sal" data-id="<%= product.id %>"
+                            data-name="<%= product.name %>" data-price="<% if (product.sale_price) { %>
                             <%= product.sale_price %>
                             <% } else { %>
                             <%= product.price %>
-                            <% } %>"
-                    data-image="<%= product.image %>"
-                    class="btn-add-to-cart bg-violet-800 text-white rounded-lg p-2
+                            <% } %>" data-image="<%= product.image %>" class="btn-add-to-cart bg-violet-800 text-white rounded-lg p-2
                         xl:text-sm xl:p-[0.35rem]
                         2xl:p-2 2xl:text-xs">
+                    </div>
+                </div>
             </div>
-        </div>
+
+        <% }) %>
+
     </div>
-
-    <% }) %>
-
-</div>
 </section>

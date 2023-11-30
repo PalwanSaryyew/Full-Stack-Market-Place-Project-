@@ -180,38 +180,48 @@ function inCartTotal() {
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);
-  totalPriceElement.innerText = 'Jemi Baha: ' + totalPrice;
+  
+  totalPriceElement.innerText = 'Jemi Baha: ' + Math.round(totalPrice * 100) / 100;;
 }
 
 checkoutForm.addEventListener('submit', async e=>{
   e.preventDefault();
 
   const country = checkoutForm.country.value
-  const shipping_address1 = checkoutForm.shipping_address1.value
-  const shipping_address2 = checkoutForm.shipping_address2.value
+  const state = checkoutForm.state.value
   const city = checkoutForm.city.value
-  const zip = checkoutForm.zip.value                           
-  const phone = checkoutForm.phone.value                    
+  const address_line_2 = checkoutForm.address_line_2.value
+  const address_line_1 = checkoutForm.address_line_1.value                           
+  const zip = checkoutForm.zip.value                    
+  const phone = checkoutForm.phone.value    
   const user = checkoutForm.user.value    
   const cart = await updateBaget()
   
   try {
-    fetch('http://localhost:3050/api/v1/orders', {
+    fetch('http://localhost:3050/orders', {
       method: 'POST',
       body: JSON.stringify({
         order_items:cart,
         country,
-        shipping_address1,
-        shipping_address2,
+        state,
         city,
+        address_line_2,
+        address_line_1,
         zip,
         phone,
-        user
+        user,
       }),
       headers: { "Content-Type": "application/json" }
     }).then(response=> response.json())
       .then(data=>{
-        location.assign("http://localhost:3050/api/v1/orders/"+data.insertId)
+        if (data.message){
+          const messageElement = document.createElement("div");
+          messageElement.setAttribute('id', 'messageElemet'+messageCount)
+          messageCount++
+          messageElement.innerHTML=`<div id="newMessageElemet${messageCount}" class="messageElement ${data.success ? 'bg-green-500' : 'bg-red-500'}">${data.message}</div>`
+          messagesContainer.appendChild(messageElement)
+        }
+        if(data.success) location.assign("http://localhost:3050/orders/o/"+data.insertId)
       })
   } catch (error) {
     console.log(error);
