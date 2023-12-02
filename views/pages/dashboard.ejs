@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/menu.css" />
+    <style>
+      #bagetContainer {
+        display: none;
+      }
+
+      #bagetSection.active {
+        display: block;
+      }
+
+      #bagetContainer.active {
+        display: block;
+      }
+
+      #checkoutWindow.active {
+        display: grid;
+      }
+
+      #checkoutWindowEmtyZone.active {
+        display: block;
+      }
+
+      #asideSection.active {
+        display: grid;
+      }
+
+      input[type="number"]::-webkit-inner-spin-button {
+        display: none;
+      }
+
+      input[type="number"]::outer-spin-button {
+        display: none;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-slate-100">
+    <!-- menu -->
+    <%- include('./../partials/_menu') %>
+
+    <!-- messages container -->
+    <div id="messagesContainer" class="messagesZ fixed top-0 grid"></div>
+
+    <!-- baget partial -->
+    <%- include('./../partials/_baget') %>
+
+    <!-- Sign page -->
+    <%- include('./../partials/_sign') %>
+
+    <div class="bg-red-100 mt-16">
+        <%= result %>
+    </div>
+
+    <script src="/js/baget.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/sign.js"></script>
+  </body>
+</html>
