@@ -180,3 +180,22 @@ export const deleteUser = async (req,res)=>{
         }
     }
 };
+
+// user outing
+export const logoutUser = async (req,res)=>{
+    const result = await user.getById(res.locals.user.id);
+    if(!result){ 
+        return res.status(500).json({
+            success: false,
+            message: 'Beýle ulanyjy yok'
+        })
+    }else{
+        res.cookie('Bearer', '', {
+            maxAge: 1,
+        })
+        return res.send({
+            success:true,
+            message: 'Çykyş üstünlikli'
+        })
+    }
+}

@@ -1,5 +1,5 @@
 import express from "express";
-import { countUser, createUser, deleteUser, getUser, getUsers, loginUser } from "../controllers/cntrl.users.js";
+import { logoutUser, countUser, createUser, deleteUser, getUser, getUsers, loginUser } from "../controllers/cntrl.users.js";
 import { authPage } from "../middlewares/auth.middleware.js";
 export const router = express.Router();
 
@@ -13,6 +13,7 @@ router.get('/all/:business/', async (re,res,next)=>{
 router.get('/u/:id', getUser)
 router.put('/u/:id',)
 router.delete('/u/:id', deleteUser)
+router.post('/loguot', logoutUser)
 
 //all users
 router.get('/count', countUser)

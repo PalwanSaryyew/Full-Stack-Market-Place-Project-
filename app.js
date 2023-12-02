@@ -22,7 +22,11 @@ app.use(express.raw());
 import morgan from "morgan"
 //app.use(morgan('tiny'))
 
-// token validator
+// method reader
+/* import methodOverride from 'method-override';
+app.use(methodOverride('_method', {
+  methods: ['GET','POST']
+})) */
 
 
 // public dir
