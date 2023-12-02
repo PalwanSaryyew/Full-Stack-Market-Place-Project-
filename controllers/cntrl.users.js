@@ -14,18 +14,25 @@ export const getUsers = async (req,res)=>{
     })
 };
 export const getUser =  async (req,res)=>{
+    if(!req.params.id===res.locals.user.id){
+        if(!result) return res.status(401).send({
+            success: false,
+            message: 'Bu siz däl'
+        });
+    }
     const result = await user.getById(req.params.id);
     if(!result) return res.status(500).json({
         success: false,
         message: 'beyle ulanyjy yok'
     });
-    return res.status(200).send(result)
+    return res.render('pages/dashboard', {result})
 };
 export const countUser = async (req,res)=>{
     const result = await user.countRow();
     if(!result) return res.status(200).send({success:true,count:0})
     res.status(200).send({success:true,result})
 };
+
 export const createUser = async (req,res)=>{
     
     if(req.body.is_admin==true){
@@ -54,6 +61,7 @@ export const createUser = async (req,res)=>{
                         decodedToken.username,
                         decodedToken.phoneNumber,
                         decodedToken.hashedPass,
+                        decodedToken.role
                     )
                     return res.send({
                         success:true,
@@ -85,8 +93,8 @@ export const createUser = async (req,res)=>{
             });
             const username = req.body.username;
             const phoneNumber = req.body.phone_number;
-            console.log(req.body.password, typeof req.body.password);
             const hashedPass = bcrypt.hashSync(req.body.password, 10);
+            const role = req.body.user_role
             const codeValidTime = new Date();
             const randomLoginNumber = Math.floor(Math.random() * 99999);
             const {insertId} = await user.createValidationCode(randomLoginNumber)    
@@ -96,6 +104,7 @@ export const createUser = async (req,res)=>{
                     username,
                     phoneNumber,
                     hashedPass,
+                    role,
                     codeValidTime,
                     insertId
                 },
@@ -149,7 +158,7 @@ export const loginUser = async (req,res)=>{
             expiresIn: '7d'
         }
     )
-    res.locals.user=isUser.username
+    
     res.cookie('Bearer', token,{
         httpOnly: true,
         expiresIn: 1000 * 60 * 60 * 24 * 7

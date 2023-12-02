@@ -14,11 +14,12 @@ function loginOrRegister() {
   registerWindow.style.transform=`rotateY(${degreeRegister+180}deg`;
 }
 
-isAdmin.addEventListener('change',()=>{
+//!
+/* isAdmin.addEventListener('change',()=>{
     isAdminInputs.forEach(input=>{
         input.classList.toggle('hidden')
     })
-})
+}) */
 
 const signWindowClose = ()=>{
   signSection.classList.toggle('hidden')
@@ -33,6 +34,7 @@ registerWindow.addEventListener('submit', async e => {
   const phone_number = registerWindow.phone.value
   const password = registerWindow.password.value
   const username = registerWindow.name.value
+  const user_role = registerWindow.user_role.value
   const validation_code = registerWindow.validation_code.value
 
 
@@ -42,6 +44,7 @@ registerWindow.addEventListener('submit', async e => {
       phone_number,
       password,
       username,
+      user_role,
       validation_code
     }),
     headers: { "Content-Type": "application/json" }

@@ -27,15 +27,16 @@ export async function getByEmail(email){
     `,[email])
     return row[0]
 };
-export async function createRow(a,b,c){
+export async function createRow(a,b,c,d){
     const [row] = await pool.query(`
         INSERT INTO users(
             username,
             phone_number,
-            password
+            password,
+            user_role
         )
-        VALUES(?,?,?);
-    `,[a,b,c])
+        VALUES(?,?,?,?);
+    `,[a,b,c,d])
     return row
 };
 export async function createValidationCode(a){

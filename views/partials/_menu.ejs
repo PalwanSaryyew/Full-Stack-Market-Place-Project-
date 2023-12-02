@@ -20,12 +20,16 @@
 
     <!-- sign button  and baget-->
     <div class="grid grid-cols-2 justify-self-stretch d">
-      <button
-        onclick="signWindowClose()"
+      <a 
+        <% if (user) { %>
+          href="http://localhost:3050/users/u/<%= user.id %>"
+        <% } else { %>
+          onclick="signWindowClose()"
+        <% } %>
         class="bg-gray-100 border-0 hover:bg-gray-200 rounded text-base py-2 px-4 justify-self-start">
         Sign
-      </button>
-      <a id="bagetButton" class="bg-violet-700 text-white p-2 rounded-md justify-self-end">Sebet</a>
+      </a>
+      <button id="bagetButton" class="bg-violet-700 text-white p-2 rounded-md justify-self-end">Sebet</button>
     </div>
 
     <!-- menu button -->

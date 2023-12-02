@@ -23,8 +23,7 @@ import morgan from "morgan"
 //app.use(morgan('tiny'))
 
 // token validator
-import { authJwt } from "./helpers/jwt.js";
-//!app.use(authJwt()) 
+
 
 // public dir
 app.use(express.static('public'));
@@ -36,6 +35,10 @@ app.set('view engine', 'ejs')
 // error handler
 import {errorHandler} from './helpers/error.handler.js'
 app.use(errorHandler)
+
+//auth middleware
+import { checkUser } from "./middlewares/auth.middleware.js";
+app.use('*', checkUser)
 
 // main routes
 import { getList } from "./models/product.js";
