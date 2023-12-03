@@ -27,6 +27,32 @@ export async function getByEmail(email){
     `,[email])
     return row[0]
 };
+export async function createRow2(a,b,c,d,e,f,g,h,i,j,k,l,m){
+    const [row] = await pool.query(
+      `
+        INSERT INTO users(
+            phone_number,
+            password,
+            username,
+            user_role,
+
+            email,
+            country,
+            state,
+            city,
+            address_line_1,
+            address_line_2,
+            zip_code,
+            business_name,
+            
+            registration_date
+        )
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+    `,
+      [a, b, c, d,e,f,g,h,i,j,k,l,m]
+    );
+    return row
+};
 export async function createRow(a,b,c,d){
     const [row] = await pool.query(`
         INSERT INTO users(

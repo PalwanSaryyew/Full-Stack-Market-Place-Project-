@@ -27,7 +27,11 @@
           onclick="signWindowClose()"
         <% } %>
         class="bg-gray-100 border-0 hover:bg-gray-200 rounded text-base py-2 px-4 justify-self-start">
-        Sign
+        <% if (user) { %>
+          Profil
+        <% } else { %>
+          Giriş
+        <% } %>
       </a>
       <button id="bagetButton" class="bg-violet-700 text-white p-2 rounded-md justify-self-end">Sebet</button>
     </div>

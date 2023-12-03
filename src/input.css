@@ -1,5 +1,8 @@
 @tailwind base;
 @layer base{
+    .notLastChildHide > *:not(:last-child) {
+        @apply hidden
+      }
     .checkoutInputs{
         @apply p-2 outline-none focus:ring rounded-md
     }
@@ -13,7 +16,7 @@
         @apply shadow-md text-white
     }
     .btn-add-to-cart{
-        @apply hover:scale-105 hover:drop-shadow-lg active:scale-95 transition-all duration-75
+        @apply hover:scale-105 hover:drop-shadow-lg active:scale-95 transition-all duration-75 cursor-pointer
     }
     .messageElement{
         @apply text-white animate-newMessage shadow-2xl rounded-md max-h-0 max-w-0 p-0 mt-0 whitespace-nowrap overflow-hidden bg-violet-500

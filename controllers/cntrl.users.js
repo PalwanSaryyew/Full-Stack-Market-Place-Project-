@@ -35,13 +35,68 @@ export const countUser = async (req,res)=>{
 
 export const createUser = async (req,res)=>{
     
-    if(req.body.is_admin==true){
-        if (!req.body.phone || req.body.phone === ""){
-            return res.status(400).send({
-                success:false,
-                message: 'telefon hokmany'
+    if (req.body.user_role==='businessPerson'){
+        if (!req.body.username || req.body.username === "") return res.send({
+            success: false,
+            message: 'Ulanyjy Ady hökmany'
+        })
+        if (!req.body.password || req.body.password === "") return res.send({
+            success: false,
+            message: 'Parol hökmany'
+        })
+        if (!req.body.phone_number || req.body.phone_number === "") return res.send({
+            success: false,
+            message: 'Tel. Belgi hökmany'
+        })
+
+        if (!req.body.email || req.body.email === "") return res.send({
+            success: false,
+            message: 'Email hökmany'
+        })
+        if (!req.body.country || req.body.country === "") return res.send({
+            success: false,
+            message: 'Ýurt hökmany'
+        })
+        if (!req.body.state || req.body.state === "") return res.send({
+            success: false,
+            message: 'Welaýat hökmany'
+        })
+        if (!req.body.city || req.body.city === "") return res.send({
+            success: false,
+            message: 'Salgy hökmany'
+        })
+        if (!req.body.address_line_1 || req.body.address_line_1 === "") return res.send({
+            success: false,
+            message: 'Salgy hökmany'
+        })
+        if (!req.body.business_name || req.body.business_name === "") return res.send({
+            success: false,
+            message: 'Kärhanaň ady hökmany'
+        })
+        else {
+            /* const row = user.createRow2(
+              phone,
+              password,
+              username,
+              user_role,
+
+              email,
+              country,
+              state,
+              city,
+              address_line_1,
+              address_line_2,
+              zip,
+              business_name,
+
+              new Date()
+            ); */
+            return res.send({
+                success :true,
+                message: "Dogry"
             })
         }
+
     };
 
     try {
