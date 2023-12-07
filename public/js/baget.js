@@ -114,7 +114,7 @@ function buggetAppend(cart) {
                 </div>    
                 <!-- trash box -->
                 <button data-id="${productInCart.product}" class="baget-to-trash w-5 bg-gary-500">
-                <img  src="/trash.svg" class="w-full" alt="">
+                  <img data-id="${productInCart.product}" src="/trash.svg" class="w-full" alt="">
                 </button>  
               </div>  
             </div>
@@ -125,7 +125,8 @@ function buggetAppend(cart) {
   const bagetToTrashButton = document.querySelectorAll(".baget-to-trash");
   bagetToTrashButton.forEach((button) => {
     button.addEventListener("click", async (event) => { // harydyn pozmak dugmesine basanda
-      cart.splice(event.target.dataset.id, 1); // sebetden bellenen harydy ayyryar
+      const index = cart.findIndex((item) => item.product == event.target.dataset.id)
+      cart.splice(index, 1); // sebetden bellenen harydy ayyryar
       const newCart = await updateBaget(cart);
       buggetAppend(newCart);
     });

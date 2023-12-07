@@ -91,9 +91,12 @@ export const createUser = async (req,res)=>{
 
               new Date()
             ); */
+            const randomLoginNumber = Math.floor(Math.random() * 99999);
+            console.log(randomLoginNumber);
             return res.send({
                 success :true,
-                message: "Dogry"
+                message: "Dogry",
+                showCodeValidationInput:true,
             })
         }
 

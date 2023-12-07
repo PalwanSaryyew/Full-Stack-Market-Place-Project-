@@ -434,7 +434,7 @@ video {
   display: none;
 }
 
-.notLastChildHide > *:not(:last-child) {
+.notLastChildHide > *:not(:last-child):not(:nth-last-child(2)) {
   display: none;
 }
 

@@ -1,6 +1,6 @@
 @tailwind base;
 @layer base{
-    .notLastChildHide > *:not(:last-child) {
+    .notLastChildHide > *:not(:last-child):not(:nth-last-child(2)) {
         @apply hidden
       }
     .checkoutInputs{
